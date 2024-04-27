@@ -404,7 +404,8 @@ def main():
         print(f"{cc}|{mm}|{yy}|{cvv} ->" ,status, msg)
 
             # Input field for card details
-    card_num = st.text_input("Enter card number in format CC|MM|YY|CVV:")
+      # Input field for card details
+    card_num = st.text_input("Enter card number in format CC|MM|YY|CVV:", key="main_card_input")
 
     # Button to run automated tasks
     if st.button("Run Automated Tasks"):
