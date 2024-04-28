@@ -416,6 +416,7 @@ if st.button("Run Automated Tasks"):
     st.write("Automated tasks completed!")
 
 # Main function
+# Main function
 def main():
     st.title("Automated Tasks with Streamlit")
 
