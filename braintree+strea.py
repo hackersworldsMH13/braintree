@@ -45,23 +45,7 @@ def automate_tasks(card_num):
     proxies = [
     'auth-proxy.unipd.it:8080:matteo.pastrello@studenti.unipd.it:Thepastro333',
     'auth-proxy.unipd.it:8080:gianmarco.favero.1@studenti.unipd.it:sossio1994',
-    'residential.pingproxies.com:10597:Z57wqOkavdy1cCT_c_US:RNW78Fm5',
-    'proxy-auth2.unifi.it:8888:7029876:Helise90!',
-    'proxy.upe.br:9000:capesupe:2012_CAPESUPE',
-    'proxy.uem.br:8080:pg54371:1994-09-15-5-M',
-    'resi-v4.whiteproxies.com:27012'
-    'rp.proxyscrape.com:6060:lrjwk4ipt5nkelz:8mm86becm14d41f'
-    'proxy.proxyverse.io:9200:country-worldwide:ec86a464-0c10-4f9b-97b0-65b12c942bd7'
-    'geo.iproyal.com:12321:uzo4qms5ClrnMrYt:QfuM7kG7RzJs8YED_country-bi'
-    'geo.iproyal.com:12321:uzo4qms5ClrnMrYt:QfuM7kG7RzJs8YED_country-bi'
-    'geo.iproyal.com:12321:uzo4qms5ClrnMrYt:QfuM7kG7RzJs8YED_country-bi'
-    'geo.iproyal.com:12321:uzo4qms5ClrnMrYt:QfuM7kG7RzJs8YED_country-bi'
-    'geo.iproyal.com:12321:uzo4qms5ClrnMrYt:QfuM7kG7RzJs8YED_country-bi'
-    'geo.iproyal.com:12321:uzo4qms5ClrnMrYt:QfuM7kG7RzJs8YED_country-bi'
-    'geo.iproyal.com:12321:uzo4qms5ClrnMrYt:QfuM7kG7RzJs8YED_country-bi'
-    'geo.iproyal.com:12321:uzo4qms5ClrnMrYt:QfuM7kG7RzJs8YED_country-bi'
-    'geo.iproyal.com:12321:uzo4qms5ClrnMrYt:QfuM7kG7RzJs8YED_country-bi'
-    'geo.iproyal.com:12321:uzo4qms5ClrnMrYt:QfuM7kG7RzJs8YED_country-bi'
+    'residential.pingproxies.com:10597:Z57wqOkavdy1cCT_c_US:RNW78Fm5'
 
 ]
 
@@ -75,11 +59,7 @@ def automate_tasks(card_num):
     
     # Get the card details from the user input
     cc, mm, yy, cvv = card_num.strip().split("|")
-
-    # Add your existing code here, replacing any input() calls with st.text_input() or st.text_area()
-    # Replace input() with st.text_input()
-    card_num = st.text_input("Enter card number in format CC|MM|YY|CVV:")
-    cc, mm, yy, cvv = card_num.strip().split("|")  
+ 
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:125.0) Gecko/20100101 Firefox/125.0',
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
