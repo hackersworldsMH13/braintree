@@ -38,6 +38,9 @@ def automate_tasks(card_num):
     password = generate_password()[1]
     
     username = generate_password()[2]
+    
+    # Get the card details from the user input
+    cc, mm, yy, cvv = card_num.strip().split("|")
         # List of proxies
     proxies = [
     'auth-proxy.unipd.it:8080:matteo.pastrello@studenti.unipd.it:Thepastro333',
